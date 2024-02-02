@@ -7,7 +7,7 @@ public class SurvivalGameController : MonoBehaviour
 {
     private float timeLeft = 40;
     [SerializeField] GameObject stalagmite;
-    private int numRocks = 5;
+    [SerializeField] private int numRocks = 5;
     private List<Transform> rocks = new List<Transform>();
     private static int difficulty = 0;
     private bool started = false;
@@ -25,21 +25,21 @@ public class SurvivalGameController : MonoBehaviour
             if(timeLeft < 30 && level1)
             {
                 CancelInvoke("ManageRocks");
-                InvokeRepeating("ManageRocks", 0, 2.8f);
+                InvokeRepeating("ManageRocks", 0, 2.5f);
                 difficulty += 5;
                 level1 = false;
             }
             if(timeLeft < 20 && level2)
             {
                 CancelInvoke("ManageRocks");
-                InvokeRepeating("ManageRocks", 0, 2.6f);
+                InvokeRepeating("ManageRocks", 0, 2.1f);
                 difficulty += 5;
                 level2 = false;
             }
             if(timeLeft < 10 && level3)
             {
                 CancelInvoke("ManageRocks");
-                InvokeRepeating("ManageRocks", 0, 2.4f);
+                InvokeRepeating("ManageRocks", 0, 1.8f);
                 difficulty += 5;
                 level3 = false;
             }
@@ -58,7 +58,7 @@ public class SurvivalGameController : MonoBehaviour
     public void StartGame()
     {
         started = true;
-        InvokeRepeating("ManageRocks", 0, 3);
+        InvokeRepeating("ManageRocks", 0, 2.8f);
     }
 
     private void ManageRocks()
