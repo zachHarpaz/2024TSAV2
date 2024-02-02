@@ -74,7 +74,7 @@ public class SimonController : MonoBehaviour
         {
             for (int i = 0; i < sequence.Count; i++)
             {
-                if ((sequence[i] + 1) != buttonsPressed[i])
+                if (!buttonsPressed.Contains(sequence[i] + 1))
                 {
                     //Debug.Log("You lose");
                     roundsRemaining.text = "You lose";
@@ -140,6 +140,8 @@ public class SimonController : MonoBehaviour
                
                 GameObject currentObject = hit.collider.gameObject;
                 
+                GetComponent<AudioSource>().Play();
+
                 if (buttonsPressed.Contains(int.Parse(currentObject.transform.parent.name)))
                 {
                     currentObject.transform.parent.gameObject.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
