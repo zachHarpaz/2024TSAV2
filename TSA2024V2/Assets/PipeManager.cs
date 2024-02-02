@@ -31,20 +31,13 @@ public class PipeManager : MonoBehaviour
         while (toAssign != null)
         {
             Material newMat = new Material(baseMaterial);
-<<<<<<< Updated upstream
             newMat.name = "Material" + index; 
 
             
-=======
-            newMat.name = "Material" + index; // Naming the material for clarity
-
-            // Assign the new material to the object
->>>>>>> Stashed changes
             Renderer rend = toAssign.GetComponent<Renderer>();
             if (rend != null)
             {
                 rend.material = newMat;
-<<<<<<< Updated upstream
      
                 newMat.color = Random.ColorHSV(); 
             }
@@ -52,16 +45,6 @@ public class PipeManager : MonoBehaviour
  
             createdMaterials.Add(newMat);
 
-=======
-                // Optionally, customize the new material here (e.g., change color)
-                newMat.color = Random.ColorHSV(); // Example: Assign a random color
-            }
-
-            // Keep track of the created material
-            createdMaterials.Add(newMat);
-
-            // Try to find the next object
->>>>>>> Stashed changes
             index++;
             toAssign = GameObject.Find("Sphere " + index);
         }
