@@ -75,7 +75,7 @@ public class SurvivalGameController : MonoBehaviour
     {
         for(int i = 0; i < rocks.Count; i++)
         {
-            Destroy(rocks[i].gameObject);
+            rocks[i].gameObject.SetActive(false);
         }
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FirstPersonController1 : MonoBehaviour
 {
@@ -14,13 +15,14 @@ public class FirstPersonController1 : MonoBehaviour
     float vSpeed = 0;
     bool hasJumped = false;
     public Vector3 impact;
-
+    public int sceneNumber;
 
     private void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         jumpSpeed = 10f;
+        Application.targetFrameRate = 60;
 
     }
 
@@ -29,6 +31,8 @@ public class FirstPersonController1 : MonoBehaviour
     void Update()
     {
 
+
+      
 
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
@@ -53,9 +57,9 @@ public class FirstPersonController1 : MonoBehaviour
 
 
 
-        float yaw = Input.GetAxis("Mouse X") * orbitSensitivity * Time.deltaTime;
-        float pitch = Input.GetAxis("Mouse Y") * orbitSensitivity * Time.deltaTime;
 
+        float yaw = Input.GetAxis("Mouse X") * orbitSensitivity;
+        float pitch = Input.GetAxis("Mouse Y") * orbitSensitivity;
         Vector3 rot = transform.rotation.eulerAngles + new Vector3(-pitch, yaw, 0f);
         rot.x = ClampAngle(rot.x, -90, 70);
         transform.eulerAngles = rot;
@@ -133,6 +137,12 @@ public class FirstPersonController1 : MonoBehaviour
         while (angle < 0)
             angle += 360;
         return angle;
+    }
+
+
+    private void OnParticleCollision(GameObject other)
+    {
+        SceneManager.LoadScene(sceneNumber);
     }
 
 

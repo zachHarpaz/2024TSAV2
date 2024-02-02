@@ -34123,10 +34123,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.8810072
-  m_Height: 4.919905
+  m_Radius: 1.6144402
+  m_Height: 2.494257
   m_Direction: 1
-  m_Center: {x: 1.9150658, y: 2.4599526, z: 2.8810072}
+  m_Center: {x: 2.0501232, y: 1.2471285, z: 2.8810074}
 --- !u!114 &1828511473148769926
 MonoBehaviour:
   m_ObjectHideFlags: 0
