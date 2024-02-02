@@ -63,12 +63,7 @@ public class SurvivalGameController : MonoBehaviour
 
     private void ManageRocks()
     {
-        if(rocks.Count > 0)
-        {
-            Invoke("DestroyAll", 5);
-        }
         rocks = InstantiateRocks();
-
     }
 
     private void DestroyAll()
@@ -144,5 +139,6 @@ public class SurvivalGameController : MonoBehaviour
     private void GameWon()
     {
         portal.SetActive(true);
+        Invoke("DestroyAll", 5f);
     }
 }
