@@ -22,7 +22,7 @@ public class FirstPersonController1 : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         jumpSpeed = 10f;
-        Application.targetFrameRate = 60;
+        //Application.targetFrameRate = 60;
 
     }
 
@@ -31,11 +31,8 @@ public class FirstPersonController1 : MonoBehaviour
     void Update()
     {
 
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-      
+
+
 
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
@@ -55,14 +52,14 @@ public class FirstPersonController1 : MonoBehaviour
         moveDirection *= sensitivity;
 
 
+     
 
 
 
 
+        float yaw = Input.GetAxis("Mouse X") * orbitSensitivity * Time.deltaTime;
+        float pitch = Input.GetAxis("Mouse Y") * orbitSensitivity * Time.deltaTime;
 
-
-        float yaw = Input.GetAxis("Mouse X") * orbitSensitivity;
-        float pitch = Input.GetAxis("Mouse Y") * orbitSensitivity;
         Vector3 rot = transform.rotation.eulerAngles + new Vector3(-pitch, yaw, 0f);
         rot.x = ClampAngle(rot.x, -90, 70);
         transform.eulerAngles = rot;
@@ -94,6 +91,73 @@ public class FirstPersonController1 : MonoBehaviour
 
 
     }
+
+
+
+
+    /*if(Input.GetKeyDown(KeyCode.Escape))
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+
+    float horizontal = Input.GetAxis("Horizontal");
+    float vertical = Input.GetAxis("Vertical");
+
+    moveDirection = new Vector3(horizontal, 0f, vertical);
+    moveDirection = transform.TransformDirection(moveDirection);
+
+
+    if (Input.GetKey("left shift"))
+    {
+        sensitivity = sensitivity_setter * 1.7f;
+    }
+    else
+    {
+        sensitivity = sensitivity_setter;
+    }
+    moveDirection *= sensitivity;
+
+
+
+
+
+
+
+
+    float yaw = Input.GetAxis("Mouse X") * orbitSensitivity;
+    float pitch = Input.GetAxis("Mouse Y") * orbitSensitivity;
+    Vector3 rot = transform.rotation.eulerAngles + new Vector3(-pitch, yaw, 0f);
+    rot.x = ClampAngle(rot.x, -90, 70);
+    transform.eulerAngles = rot;
+
+    if (ch.isGrounded)
+
+    {
+        vSpeed = -20;
+
+        if (Input.GetButtonDown("Jump"))
+        {
+
+            vSpeed = jumpSpeed;
+            hasJumped = true;
+            impact = transform.forward * 15;
+
+        }
+
+
+    }
+    else
+    {
+        hasJumped = false;
+    }
+    vSpeed -= gravity * Time.deltaTime;
+    moveDirection.y = vSpeed;
+    ch.Move(moveDirection * Time.deltaTime);
+
+
+
+}*/
     protected float ClampAngle(float angle, float min, float max)
     {
 
@@ -145,6 +209,7 @@ public class FirstPersonController1 : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
+        Debug.Log("HI");
         SceneManager.LoadScene(sceneNumber);
     }
 
