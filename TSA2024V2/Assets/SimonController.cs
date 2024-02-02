@@ -2,29 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 public class SimonController : MonoBehaviour
 {
     private List<GameObject> pairs = new List<GameObject>();
-    private List<int> sequence = new List<int>();
-    List<int> buttonsPressed = new List<int>();
+    public List<int> sequence = new List<int>();
+    public List<int> buttonsPressed = new List<int>();
     private bool submit = false;
+    [SerializeField] Transform simonGroup;
+    [SerializeField] int numRounds = 5;
+    [SerializeField] TextMeshProUGUI roundsRemaining;
 
     public Camera playerCamera;
     public GameObject portal;
     public TextMeshProUGUI pickupText;
     private void Start()
     {
-        pairs.Add(transform.GetChild(0).gameObject);
-        pairs.Add(transform.GetChild(1).gameObject);
-        pairs.Add(transform.GetChild(2).gameObject);
-        pairs.Add(transform.GetChild(3).gameObject);
-        pairs.Add(transform.GetChild(4).gameObject);
-        pairs.Add(transform.GetChild(5).gameObject);
-        pairs.Add(transform.GetChild(6).gameObject);
-        pairs.Add(transform.GetChild(7).gameObject);
-        pairs.Add(transform.GetChild(8).gameObject);
-
-        Invoke("RunSequence", 2.0f);  
+        pairs.Add(simonGroup.GetChild(0).gameObject);
+        pairs.Add(simonGroup.GetChild(1).gameObject);
+        pairs.Add(simonGroup.GetChild(2).gameObject);
+        pairs.Add(simonGroup.GetChild(3).gameObject);
+        pairs.Add(simonGroup.GetChild(4).gameObject);
+        pairs.Add(simonGroup.GetChild(5).gameObject);
+        pairs.Add(simonGroup.GetChild(6).gameObject);
+        pairs.Add(simonGroup.GetChild(7).gameObject);
+        pairs.Add(simonGroup.GetChild(8).gameObject); 
     }
 
     private void RunSequence()
@@ -50,60 +53,108 @@ public class SimonController : MonoBehaviour
 
     private IEnumerator LightUp(GameObject pair, float time)
     {
+        transform.position = new Vector3(-7f, 14.5f, -6.6f);
+        GetComponent<CharacterController>().enabled = false;
         pair.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.green;
         yield return new WaitForSeconds(time);
+        GetComponent<CharacterController>().enabled = true;
         pair.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
     }
 
-    private void Manager()
+    public void StartManager()
     {
-        int correctCount = 0;
+        RunSequence();
+        StartCoroutine(CheckSequence());
+    }
 
+    private IEnumerator CheckSequence()
+    {
+        yield return new WaitForSeconds(25);
+        if (sequence.Count == buttonsPressed.Count)
+        {
+            for (int i = 0; i < sequence.Count; i++)
+            {
+                if ((sequence[i] + 1) != buttonsPressed[i])
+                {
+                    //Debug.Log("You lose");
+                    roundsRemaining.text = "You lose";
+                    yield return new WaitForSeconds(3);
+                    Restart();
+                }
+            }
+            //Debug.Log("You win!");
+            sequence.Clear();
+            buttonsPressed.Clear();
+            for(int i = 0; i < pairs.Count; i++)
+            {
+                pairs[i].transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
+            }
+            numRounds--;
+            roundsRemaining.text = "Rounds remaining: " + numRounds;
+            if (numRounds == 0)
+            {
+                portal.SetActive(true);
+            }
+            else
+            {
+                StartManager();
+            }
+        }
+        else
+        {
+            roundsRemaining.text = "You lose";
+            yield return new WaitForSeconds(3);
+            Restart();
+        }
+    }
+
+    private void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     
     private void Update()
     {
-
-
-
-       
         RaycastHit hit1;
-        bool canPickup = Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit1, 20);
+        bool canPickup = Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit1, 5);
 
-        Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 20, Color.red);
+        //Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 20, Color.red);
 
         if (canPickup && hit1.collider.gameObject.tag == "Button")
         {
-            pickupText.text = "Click E to pick up";
+            pickupText.text = "Press E to select the button.";
         }
         else
         {
             pickupText.text = "";
         }
-    
-      
 
         if (Input.GetKeyDown(KeyCode.E))
         {
 
             RaycastHit hit;
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 20, Color.green);
-            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 20) &&
+            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 5, Color.green);
+            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 5) &&
                 hit.collider.gameObject.tag == "Button")
             {
-                
+               
                 GameObject currentObject = hit.collider.gameObject;
                 
                 if (buttonsPressed.Contains(int.Parse(currentObject.transform.parent.name)))
                 {
                     currentObject.transform.parent.gameObject.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
+                    if(buttonsPressed.Contains(int.Parse(currentObject.transform.parent.name)))
+                    {
+                        buttonsPressed.Remove(int.Parse(currentObject.transform.parent.name));
+                    }
                 }
                 else
                 {
-                    Debug.Log("In the else");
-                    Debug.Log(currentObject.name);
                     currentObject.transform.parent.gameObject.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.green;
-                    buttonsPressed.Add(int.Parse(currentObject.transform.parent.name));
+                    if(!buttonsPressed.Contains(int.Parse(currentObject.transform.parent.name)))
+                    {
+                        buttonsPressed.Add(int.Parse(currentObject.transform.parent.name));
+                    }
                 }
             }
         }
