@@ -23,5 +23,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Cyberpunk Material Pack/Future Scene.unity
     guid: c0f5da8972c1d435b89ea51d2f211062
+  - enabled: 1
+    path: Assets/Intro/Finished.unity
+    guid: 80e59c8f638bd634fb766f856550a14b
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
