@@ -31,7 +31,10 @@ public class FirstPersonController1 : MonoBehaviour
     void Update()
     {
 
-
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
       
 
         float horizontal = Input.GetAxis("Horizontal");

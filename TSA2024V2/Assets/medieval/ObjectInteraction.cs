@@ -9,14 +9,15 @@ public class ObjectInteraction : MonoBehaviour
     public float burnDistance = 2.0f; 
     public bool isHeld;
     public ObjectPicker objpick;
+    public AudioSource audioSource;
     private void Update()
     {
         if (IsNearTorch() && !isHeld)
         {
             objpick.score += 1;
             Debug.Log(objpick.score);
+            audioSource.Play();
             BurnObject();
-            sparkEffect.Play();
         }
     }
 

@@ -90,6 +90,8 @@ public class SurvivalGameController : MonoBehaviour
             rocks.Add(Instantiate(stalagmite, new Vector3(xValues[i], 20, zValues[i]), Quaternion.identity).transform);
         }
 
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
         return rocks;
     }
 
