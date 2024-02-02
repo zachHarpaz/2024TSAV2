@@ -11,6 +11,7 @@ public class ObjectRotator : MonoBehaviour
     public bool myBoolean = false;
     public TextMeshProUGUI tm;
     public changeState cs;
+    public AudioSource aud;
     void Update()
     {
 
@@ -48,10 +49,15 @@ public class ObjectRotator : MonoBehaviour
                     isHolding = true;
                     currentButton = hit.collider.gameObject;
                     cs = currentButton.GetComponent<changeState> ();
-
+                    aud.Play();
                     holdTimer = 0f; 
                 }
             }
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            aud.Stop();
         }
 
         if (Input.GetMouseButton(0) && isHolding)
