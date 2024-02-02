@@ -5,8 +5,8 @@ using UnityEngine;
 public class ObjectInteraction : MonoBehaviour
 {
     public ParticleSystem sparkEffect;
-    public GameObject correspondingTorch; // Assign in the inspector
-    public float burnDistance = 2.0f; // Distance within which the object will burn
+    public GameObject correspondingTorch; 
+    public float burnDistance = 2.0f; 
     public bool isHeld;
     public ObjectPicker objpick;
     private void Update()
@@ -28,8 +28,6 @@ public class ObjectInteraction : MonoBehaviour
 
     private void BurnObject()
     {
-        // Implement burning effect here (e.g., play a particle system)
-        // For now, we'll just destroy the object
 
         Destroy(gameObject);
     }
