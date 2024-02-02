@@ -500,7 +500,7 @@ MonoBehaviour:
   m_text: Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 447e6a4e3cf57b347bb07f11b813f053, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 7238412218104657673, guid: 447e6a4e3cf57b347bb07f11b813f053, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1631,9 +1631,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Movement: WASD\n\nJump: Space\n\nSprint: Shift \n\nToggle  Powers: 1,
-    2, 3, 4\n\t1: Freeze Power (left click on water)\n\t2: Super Jump  (click space
-    to jump)\n\t3: Lightning (hold left click)\n\t4: Wind Power (hold left click)"
+  m_text: "Movement: WASD\nJump: Space\nSprint: Shift \n\nPick up, Drop, and Click
+    Buttons: E\n\nTurn Valves: Left Click\n\nRestart Level: Esc"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 447e6a4e3cf57b347bb07f11b813f053, type: 2}
   m_sharedMaterial: {fileID: 7238412218104657673, guid: 447e6a4e3cf57b347bb07f11b813f053, type: 2}

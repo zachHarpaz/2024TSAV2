@@ -16,6 +16,7 @@ public class ObjectInteraction : MonoBehaviour
         {
             objpick.score += 1;
             Debug.Log(objpick.score);
+            sparkEffect.Play();
             audioSource.Play();
             BurnObject();
         }
