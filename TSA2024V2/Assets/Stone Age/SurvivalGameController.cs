@@ -81,51 +81,13 @@ public class SurvivalGameController : MonoBehaviour
         List<float> xValues = new List<float>();
         List<float> yValues = new List<float>();
         List<float> zValues = new List<float>();
+        List<Transform> rocks = new List<Transform>();
         
         for(int i = 0; i < totalRocks; i++)
         {
             xValues.Add(Random.Range(-30, 0));
-        }
-        for(int i = 0; i < totalRocks; i++)
-        {
-            yValues.Add(Random.Range(15, 20));
-        }
-
-        foreach(int y in yValues)
-        {
-            float random = Random.Range(0, 1);
-            if(y >= 15 && y < 16.5)
-            {
-                if(random >= 0.5)
-                {
-                    zValues.Add(Random.Range(-6.5f, -3f));
-                }
-                else
-                {
-                    zValues.Add(Random.Range(11, 15.5f));
-                }
-            }
-            else if(y >= 16.5 && y < 18)
-            {
-                if(random >= 0.5)
-                {
-                    zValues.Add(Random.Range(-3, 1));
-                }
-                else
-                {
-                    zValues.Add(Random.Range(9, 11));
-                }
-            }
-            else
-            {
-                zValues.Add(Random.Range(1, 9));
-            }
-        }
-        
-        List<Transform> rocks = new List<Transform>();
-        for(int i = 0; i < totalRocks; i++)
-        {
-            rocks.Add(Instantiate(stalagmite, new Vector3(xValues[i], yValues[i], zValues[i]), Quaternion.identity).transform);
+            zValues.Add(Random.Range(-6.5f, 15.5f));
+            rocks.Add(Instantiate(stalagmite, new Vector3(xValues[i], 20, zValues[i]), Quaternion.identity).transform);
         }
 
         return rocks;
