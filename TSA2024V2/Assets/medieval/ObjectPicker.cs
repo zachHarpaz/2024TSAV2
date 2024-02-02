@@ -38,7 +38,7 @@ public class ObjectPicker : MonoBehaviour
         }
         else
         {
-            pickupText.text = "";
+            pickupText.text = "Press E to drop item";
         }
 
         if (Input.GetKeyDown(pickupKey))
