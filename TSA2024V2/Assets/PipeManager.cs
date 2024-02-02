@@ -13,8 +13,8 @@ public class PipeManager : MonoBehaviour
     public bool wheel3;
     public bool wheel4;
     public bool wheel5;
-   
-
+    public GameObject portal;
+    public GameObject fire; 
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,18 @@ public class PipeManager : MonoBehaviour
         AssignMaterialsToObjects();
 
     }
-
+    public void ToggleWheel(int index)
+    {
+        switch (index)
+        {
+            case 1: wheel1 = !wheel1; break;
+            case 2: wheel2 = !wheel2; break;
+            case 3: wheel3 = !wheel3; break;
+            case 4: wheel4 = !wheel4; break;
+            case 5: wheel5 = !wheel5; break;
+            default: Debug.LogError("Invalid wheel index"); break;
+        }
+    }
     void AssignMaterialsToObjects()
     {
         int index = 1;
@@ -155,6 +166,8 @@ public class PipeManager : MonoBehaviour
 
                             }
 
+                            portal.SetActive(true);
+                            fire.SetActive(true);
                         }
                         else
                         {

@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class SimonController : MonoBehaviour
 {
     private List<GameObject> pairs = new List<GameObject>();
     private List<int> sequence = new List<int>();
-    List<GameObject> buttonsPressed = new List<GameObject>();
+    List<int> buttonsPressed = new List<int>();
     private bool submit = false;
 
     public Camera playerCamera;
     public GameObject portal;
-
+    public TextMeshProUGUI pickupText;
     private void Start()
     {
         pairs.Add(transform.GetChild(0).gameObject);
@@ -63,22 +63,47 @@ public class SimonController : MonoBehaviour
     
     private void Update()
     {
+
+
+
+       
+        RaycastHit hit1;
+        bool canPickup = Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit1, 20);
+
+        Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 20, Color.red);
+
+        if (canPickup && hit1.collider.gameObject.tag == "Button")
+        {
+            pickupText.text = "Click E to pick up";
+        }
+        else
+        {
+            pickupText.text = "";
+        }
+    
+      
+
         if (Input.GetKeyDown(KeyCode.E))
         {
+
             RaycastHit hit;
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10, Color.green);
-            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 10) &&
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 20, Color.green);
+            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 20) &&
                 hit.collider.gameObject.tag == "Button")
             {
+                
                 GameObject currentObject = hit.collider.gameObject;
-                if (buttonsPressed.Contains(currentObject))
+                
+                if (buttonsPressed.Contains(int.Parse(currentObject.transform.parent.name)))
                 {
-                    currentObject.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
+                    currentObject.transform.parent.gameObject.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
                 }
                 else
                 {
-                    currentObject.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.green;
-                    buttonsPressed.Add(currentObject);
+                    Debug.Log("In the else");
+                    Debug.Log(currentObject.name);
+                    currentObject.transform.parent.gameObject.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.green;
+                    buttonsPressed.Add(int.Parse(currentObject.transform.parent.name));
                 }
             }
         }
